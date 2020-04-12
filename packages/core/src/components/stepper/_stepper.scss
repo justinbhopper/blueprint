@@ -1,0 +1,222 @@
+// Copyright 2015 Palantir Technologies, Inc. All rights reserved.
+// Licensed under the Apache License, Version 2.0.
+
+@import "../../common/variables";
+
+$stepper-text-color-inactive: $gray3 !default;
+$stepper-icon-color: $gray3 !default;
+$stepper-line-color: $gray3 !default;
+
+@mixin step-icon-colors() {
+  &.#{$ns}-step-active {
+    background-color: $pt-intent-primary;
+  }
+
+  &.#{$ns}-step-completed {
+    background-color: $pt-intent-primary;
+  }
+
+  &.#{$ns}-step-error {
+    background-color: $pt-intent-danger;
+  }
+}
+
+.#{$ns}-step-connector {
+  display: flex;
+  flex-basis: 0;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  align-items: stretch;
+  justify-content: center;
+  transition-property: flex-basis;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 1, 0.75, 0.9);
+
+  .#{$ns}-step-connector-line {
+    display: block;
+    border-color: $stepper-line-color;
+  }
+}
+
+.#{$ns}-step-icon-dot {
+  @include step-icon-colors();
+  border-radius: 50%;
+  background-color: $stepper-icon-color;
+  width: 8px;
+  height: 8px;
+}
+
+.#{$ns}-step-icon-root,
+.#{$ns}-step-icon-dot-root {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.#{$ns}-step-icon-root {
+  @include step-icon-colors();
+  border-radius: 50%;
+  background-color: $stepper-icon-color;
+  cursor: default;
+  color: $white;
+  font-size: 12px;
+}
+
+.#{$ns}-step-label-container {
+  font-size: 13px;
+}
+
+.#{$ns}-step-label {
+  display: block;
+  margin: 4px 0;
+  white-space: nowrap;
+  color: $pt-text-color-muted;
+  font-size: 14px;
+
+  &.#{$ns}-large {
+    font-size: $pt-font-size-large;
+  }
+
+  &.#{$ns}-step-active {
+    color: $dark-gray1;
+    font-weight: 500;
+  }
+
+  &.#{$ns}-step-completed {
+    color: $dark-gray1;
+    font-weight: 500;
+  }
+}
+
+.#{$ns}-step-label-root {
+  display: flex;
+  align-items: center;
+  color: $stepper-text-color-inactive;
+}
+
+.#{$ns}-step-content {
+  margin-left: 9px;
+  padding-left: 20px;
+}
+
+.#{$ns}-step {
+  flex-basis: 0;
+  transition-property: flex-basis;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 1, 0.75, 0.9);
+}
+
+.#{$ns}-stepper {
+  display: flex;
+  padding: 12px;
+
+  &.fill {
+    flex: 1 1 auto;
+  }
+
+  &.#{$ns}-stepper-vertical {
+    flex-direction: column;
+
+    &.#{$ns}-fill {
+      height: 100%;
+    }
+
+    .#{$ns}-step-label-root {
+      margin-bottom: 8px;
+    }
+
+    .#{$ns}-step-connector {
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-bottom: 8px;
+    }
+
+    .#{$ns}-step-connector-line {
+      margin-left: 9px;
+      border-left-width: 1px;
+      border-left-style: solid;
+      height: 100%;
+      min-height: 24px;
+    }
+
+    .#{$ns}-step {
+      &:not(:last-child) {
+        .#{$ns}-step-content {
+          border-left: 1px solid $stepper-line-color;
+        }
+      }
+    }
+  }
+
+  &.#{$ns}-stepper-horizontal {
+    flex-direction: row;
+    align-items: center;
+
+    &.#{$ns}-fill {
+      width: 100%;
+    }
+
+    .#{$ns}-step-label-container {
+      text-align: center;
+    }
+
+    .#{$ns}-step-connector {
+      padding-right: 8px;
+    }
+
+    .#{$ns}-step-connector-line {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      width: 100%;
+      min-width: 24px;
+    }
+
+    .#{$ns}-step {
+      &:not(:last-child) {
+        padding-right: 8px;
+      }
+    }
+  }
+
+  &.#{$ns}-stepper-alternative-label {
+    align-items: flex-start;
+
+    .#{$ns}-step {
+      flex: 1;
+      position: relative;
+    }
+
+    .#{$ns}-step-label-root {
+      flex-direction: column;
+    }
+
+    .#{$ns}-step-label {
+      margin-top: 16px;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .#{$ns}-step-icon-root,
+    .#{$ns}-step-icon-dot-root {
+      margin-right: 0;
+    }
+
+    .#{$ns}-step-connector {
+      position: absolute;
+      top: 9px;
+      right: calc(50% + 12px);
+      left: calc(-50% + 12px);
+    }
+  }
+
+  &.#{$ns}-stepper-accordion {
+    .#{$ns}-step.#{$ns}-step-active + .#{$ns}-step-connector,
+    .#{$ns}-step.#{$ns}-step-active:last-child,
+    .#{$ns}-step.#{$ns}-step-completed:last-child {
+      flex-basis: 100%;
+    }
+  }
+}

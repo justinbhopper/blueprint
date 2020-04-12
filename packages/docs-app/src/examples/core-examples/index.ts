@@ -62,6 +62,7 @@ export * from "./switchExample";
 export * from "./tagInputExample";
 export * from "./textExample";
 export * from "./spinnerExample";
+export * from "./stepperExample";
 export * from "./tabsExample";
 export * from "./inputGroupExample";
 export * from "./tagExample";

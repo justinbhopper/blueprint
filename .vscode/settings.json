@@ -17,6 +17,7 @@
     },
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
+    "files.eol": "\n",
     "[scss]": {
         "editor.tabSize": 2
     }
