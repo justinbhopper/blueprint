@@ -45,7 +45,7 @@ export interface IStepProps extends IProps {
     /** If true, the `icon` prop will be overriden by `"tick"` and the `intent` prop will be overridden by `"primary"`. */
     completed?: boolean;
 
-    /** Sets the step as active.  If using `Stepper`, this is defaulted to true if based on `disabled` prop is `true`. */
+    /** Sets the step as disabled.  If using `Stepper`, this is defaulted to true if based on `disabled` prop is `true`. */
     disabled?: boolean;
 
     /**
@@ -92,15 +92,16 @@ export class Step extends React.PureComponent<IStepProps & IAttachedStep & React
 
         const stateClasses = classNames(
             large ? Classes.LARGE : "",
+            disabled ? Classes.DISABLED : "",
             active ? Classes.STEP_ACTIVE : "",
             completed ? Classes.STEP_COMPLETED : "",
             error ? Classes.STEP_ERROR : "",
         );
 
         return (
-            <div {...divProps} className={classNames(className, Classes.STEP, stateClasses)}>
+            <div className={classNames(className, Classes.STEP, stateClasses)}>
                 {!children && connector}
-                <span className={Classes.STEP_LABEL_ROOT}>
+                <span className={Classes.STEP_LABEL_ROOT} {...divProps}>
                     {icon ? (
                         <span style={iconRootStyles} className={classNames(Classes.STEP_ICON_ROOT, stateClasses)}>
                             <Icon icon={icon} iconSize={iconSize} intent={intent} />
